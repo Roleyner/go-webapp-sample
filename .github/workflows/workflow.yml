@@ -3,7 +3,7 @@ name: Build and Deploy to GKE
 on:
   push:
     branches:
-      - master
+      - main
     tags:
       - 'v*.*.*' # Match version tags like 'v1.2.3'
 
