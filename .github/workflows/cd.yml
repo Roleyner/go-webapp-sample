@@ -40,20 +40,10 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
 
-    # Set the IMAGE_TAG variable based on the trigger event
-    - name: Set IMAGE_TAG
-      run: |
-        if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-          export IMAGE_TAG=${{ GITHUB_SHA::8 }}
-        else
-          export IMAGE_TAG=${{ github.ref/refs\/tags\// }}
-        fi
-        echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
-
     # Update the Deployment YAML with the new image tag
     - name: Update Deployment YAML
       run: |
-        sed -i "s|IMAGE_TAG|$IMAGE_TAG|g" deployment.yml
+        sed -i "s|IMAGE_TAG|${GITHUB_REF/refs\/tags\//}|g" deployment.yml
 
     # Deploy the application
     - name: Deploy
