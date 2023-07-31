@@ -47,6 +47,7 @@ jobs:
           export IMAGE_TAG=${GITHUB_SHA::8}
         else
           export IMAGE_TAG=${GITHUB_REF/refs\/tags\//}
+        fi
         echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
 
     # Update the Deployment YAML with the new image tag
