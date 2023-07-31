@@ -43,10 +43,10 @@ jobs:
     # Set the IMAGE_TAG variable based on the trigger event
     - name: Set IMAGE_TAG
       run: |
-        if github.ref == 'refs/heads/main'
-          export IMAGE_TAG=${GITHUB_SHA::8}
+        if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          export IMAGE_TAG=${{ GITHUB_SHA::8 }}
         else
-          export IMAGE_TAG=${GITHUB_REF/refs\/tags\//}
+          export IMAGE_TAG=${{ github.ref/refs\/tags\// }}
         fi
         echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
 
