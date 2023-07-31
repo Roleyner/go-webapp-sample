@@ -46,10 +46,10 @@ jobs:
         if [[ "${{ github.event_name }}" == "push" ]]; then
           export IMAGE_TAG=${{ github.sha }}
         elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-          if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
-            export IMAGE_TAG=${{ github.ref/refs\/tags\// }}
+          if [[ "${{ github.ref }}" == "refs/tags/v" ]]; then
+            export IMAGE_TAG=${GITHUB_REF/refs\/tags\//}
           else
-            export IMAGE_TAG=${{ github.sha }}
+            export IMAGE_TAG=${GITHUB_SHA::8}
           fi
         fi
         echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
