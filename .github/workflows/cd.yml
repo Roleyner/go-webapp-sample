@@ -46,7 +46,7 @@ jobs:
         if [[ "${{ github.event_name }}" == "push" ]]; then
           export IMAGE_TAG=${{ github.sha }}
         elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-          if [[ "${{ github.ref }}" =~ ^refs/tags/ ]]; then
+          if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
             export IMAGE_TAG=${{ github.ref/refs\/tags\// }}
           else
             export IMAGE_TAG=${{ github.sha }}
